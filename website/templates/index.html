@@ -1,0 +1,15 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+<title>Upload Image</title>
+{% endblock %}
+
+{% block body %} 
+<div>
+    <form method="post" action="/uploadimage" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button type="submit">Submit</button>
+    </form>
+    <a href="{{ url_for('views.captureImage') }}">Capture Image From Camera</a>
+</div>
+{% endblock %}

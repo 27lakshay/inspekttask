@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>View Image</title>
+{% endblock %}
+{% block body %}
+<div class="img-zoom-container">
+    <p>{{ filename }}</p>
+    <div>
+        <img onmouseover="imageZoom('myimage', 'myresult')" id="myimage"
+            src="{{ url_for('views.get_image', filename=filename) }}" />
+    </div>
+    <div id="myresult" class="img-zoom-result"></div>
+</div>
+{% endblock %}

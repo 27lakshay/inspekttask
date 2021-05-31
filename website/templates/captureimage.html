@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block head %}
+<title>Capture Image</title>
+{% endblock %} {% block body %}
+<!-- Camera -->
+<button class="submit-button" onclick="postFile()">View pic</button>
+
+<main id="camera">
+  <!-- Camera sensor -->
+  <canvas id="camera--sensor"></canvas>
+
+  <!-- Camera view -->
+  <video id="camera--view" autoplay playsinline></video>
+
+  <!-- Camera output -->
+  <img src="//:0" alt="" id="camera--output" />
+
+  <!-- Camera trigger -->
+  <button id="camera--trigger">Take a picture</button>
+</main>
+{% endblock %}
