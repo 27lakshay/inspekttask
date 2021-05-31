@@ -4,11 +4,11 @@ from werkzeug.utils import secure_filename
 
 views = Blueprint('views', __name__)
 
-from main import app
+# from main import app
 
 UPLOAD_FOLDER = 'website/static/uploads/'
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # views.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
  
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -38,7 +38,7 @@ def save_image():
     if file and allowed_file(file.filename):
     # if file:
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file.save(os.path.join(UPLOAD_FOLDER, filename))
         #print('upload_image filename: ' + filename)
         flash('Image successfully uploaded and its name is below')
         # return render_template('viewimage.html', filename=filename)
@@ -71,7 +71,7 @@ def upload_image():
         return redirect(request.url)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file.save(os.path.join(UPLOAD_FOLDER, filename))
         #print('upload_image filename: ' + filename)
         flash('Image successfully uploaded and its name is below')
         return render_template('index.html', filename=filename)
