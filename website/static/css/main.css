@@ -10,6 +10,7 @@ body {
 }
 .img-zoom-container {
   position: relative;
+  margin-top: 20vh;
 }
 
 a {
