@@ -1,15 +1,21 @@
-{% extends 'base.html' %} 
-
-{% block head %}
+{% extends 'base.html' %} {% block head %}
 <title>Upload Image</title>
-{% endblock %}
-
-{% block body %} 
-<div>
-    <form method="post" action="/uploadimage" enctype="multipart/form-data">
-        <input type="file" name="image" required>
-        <button type="submit">Submit</button>
-    </form>
-    <a href="{{ url_for('views.captureImage') }}">Capture Image From Camera</a>
+{% endblock %} {% block body %}
+<div class="container h-100 d-flex flex-column justify-content-center">
+  <form method="post" action="/uploadimage" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Upload File from Below:</label>
+      <input required class="form-control" type="file" name="image" id="formFile" />
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+  </form>
+  <a href="{{ url_for('views.captureImage') }}">Capture Image From Camera</a>
 </div>
+{% endblock %} {% block script %}
+<script>
+  window.addEventListener("DOMContentLoaded", (event) => {
+    token = localStorage.getItem("token");
+    if (!token) window.location.replace("/login");
+  });
+</script>
 {% endblock %}

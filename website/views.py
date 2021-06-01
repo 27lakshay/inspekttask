@@ -4,12 +4,9 @@ from werkzeug.utils import secure_filename
 
 views = Blueprint('views', __name__)
 
-# from main import app
 
 UPLOAD_FOLDER = 'website/static/uploads/'
 
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-# views.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
  
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
  
@@ -18,14 +15,17 @@ def allowed_file(filename):
      
  
 @views.route('/')
+# @token_required
 def home():
     return render_template('index.html')
  
 @views.route('/captureimage')
+# @token_required
 def captureImage():
     return render_template('captureimage.html')
 
 @views.route('/uploadimage', methods=['POST'])
+# @token_required
 def save_image():
     print(request)
     if 'image' not in request.files:
@@ -48,33 +48,32 @@ def save_image():
         return redirect(request.url)
 
 @views.route('/viewimage/<filename>', methods=['GET'])
-def view_image(filename):
+# @token_required
+def view_image( filename):
     return render_template('viewimage.html', filename=filename)
 
 @views.route('/getimage/<filename>')
-def get_image(filename):
+# @token_required
+def get_image( filename):
     #print('display_image filename: ' + filename)
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
 
-if __name__ == "__main__":
-    views.run(debug=True)
-    # </filename>
-
-@views.route('/', methods=['POST'])
-def upload_image():
-    if 'file' not in request.files:
-        flash('No file part')
-        return redirect(request.url)
-    file = request.files['file']
-    if file.filename == '':
-        flash('No image selected for uploading')
-        return redirect(request.url)
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(UPLOAD_FOLDER, filename))
-        #print('upload_image filename: ' + filename)
-        flash('Image successfully uploaded and its name is below')
-        return render_template('index.html', filename=filename)
-    else:
-        flash('Allowed image types are - png, jpg, jpeg, gif')
-        return redirect(request.url)
+# @views.route('/', methods=['POST'])
+# @token_required
+# def upload_image(current_user):
+#     if 'file' not in request.files:
+#         flash('No file part')
+#         return redirect(request.url)
+#     file = request.files['file']
+#     if file.filename == '':
+#         flash('No image selected for uploading')
+#         return redirect(request.url)
+#     if file and allowed_file(file.filename):
+#         filename = secure_filename(file.filename)
+#         file.save(os.path.join(UPLOAD_FOLDER, filename))
+#         #print('upload_image filename: ' + filename)
+#         flash('Image successfully uploaded and its name is below')
+#         return render_template('index.html', filename=filename)
+#     else:
+#         flash('Allowed image types are - png, jpg, jpeg, gif')
+#         return redirect(request.url)

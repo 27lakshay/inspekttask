@@ -12,6 +12,9 @@ body {
   position: relative;
 }
 
+a {
+  width: 210px;
+}
 .img-zoom-lens {
   position: absolute;
   border: 1px solid #d4d4d4;
@@ -71,5 +74,5 @@ body {
 }
 
 .submit-button {
-    z-index: 100;
+  z-index: 100;
 }

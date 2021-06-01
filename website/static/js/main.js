@@ -1,3 +1,44 @@
+function login(e) {
+  e.preventDefault();
+  let email = document.querySelector('[name="email"]').value;
+  let password = document.querySelector('[name="password"]').value;
+
+  let formdata = new FormData();
+  formdata.append("email", email);
+  formdata.append("password", password);
+  const url = window.location.href;
+  const options = {
+    // mode: "no-cors",
+    method: "POST",
+    body: formdata,
+  };
+  fetch(url, options)
+    .then((response) => response.json())
+    .then((data) => localStorage.setItem("token", data.token))
+    .then(() => window.location.assign("/"));
+}
+function register(e) {
+  e.preventDefault();
+  let name = document.querySelector('[name="name"]').value;
+  let email = document.querySelector('[name="email"]').value;
+  let password = document.querySelector('[name="password"]').value;
+
+  let formdata = new FormData();
+  formdata.append("name", name);
+  formdata.append("email", email);
+  formdata.append("password", password);
+  const url = window.location.href;
+  const options = {
+    // mode: "no-cors",
+    method: "POST",
+    body: formdata,
+  };
+  fetch(url, options)
+    .then((response) => response.json())
+    .then(() => window.location.assign("/login"));
+}
+
+
 function imageZoom(imgID, resultID) {
   var img, lens, result, cx, cy;
   img = document.getElementById(imgID);
@@ -111,8 +152,6 @@ cameraTrigger.onclick = function () {
   cameraOutput.src = cameraSensor.toDataURL("image/webp");
   cameraSensor.toBlob(postFile, "image/jpeg");
   cameraOutput.classList.add("taken");
-  // track.stop();
 };
 
-// Start the video stream when the window loads
 window.addEventListener("load", cameraStart, false);

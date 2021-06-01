@@ -1,14 +1,24 @@
-{% extends 'base.html' %}
-{% block head %}
+{% extends 'base.html' %} {% block head %}
 <title>View Image</title>
-{% endblock %}
-{% block body %}
-<div class="img-zoom-container">
-    <p>{{ filename }}</p>
+{% endblock %} {% block body %}
+<div class="container h-100 d-flex flex-column justify-content-center">
+  <div class="img-zoom-container">
+    <p>Name of the image file: {{ filename }}</p>
     <div>
-        <img onmouseover="imageZoom('myimage', 'myresult')" id="myimage"
-            src="{{ url_for('views.get_image', filename=filename) }}" />
+      <img
+        onmouseover="imageZoom('myimage', 'myresult')"
+        id="myimage"
+        src="{{ url_for('views.get_image', filename=filename) }}"
+      />
     </div>
     <div id="myresult" class="img-zoom-result"></div>
+  </div>
 </div>
+{% endblock %} {% block script %}
+<script>
+  window.addEventListener("DOMContentLoaded", (event) => {
+    token = localStorage.getItem("token");
+    if (!token) window.location.replace("/login");
+  });
+</script>
 {% endblock %}

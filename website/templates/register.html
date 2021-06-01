@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block head %}
+<title>Register</title>
+{% endblock %} {% block body %}
+<div class="container d-flex flex-column justify-content-center align-items-center h-100">
+  <h2 class="mb-3">Register</h2>
+  <form onsubmit="register(event)">
+    <div class="mb-3">
+      <label for="inputName" class="form-label">Name</label>
+      <input type="text" name="name" class="form-control" id="inputName" placeholder="Fullname" />
+    </div>
+    <div class="mb-3">
+      <label for="inputEmail" class="form-label">Email address</label>
+      <input
+        type="email"
+        name="email"
+        class="form-control"
+        id="inputEmail"
+        placeholder="name@example.com"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="inputPassword" class="form-label">Password</label>
+      <input type="password" name="password" class="form-control" id="inputPassword" />
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Register</button>
+  </form>
+  <p>Have an account already? <a href="{{ url_for('auth.login') }}">Login</a></p>
+</div>
+{% endblock%} {% block script %}
+<script>
+  window.addEventListener("DOMContentLoaded", (event) => {
+    token = localStorage.getItem("token");
+    if (token) window.location.replace("/");
+  });
+</script>
+{% endblock %}
